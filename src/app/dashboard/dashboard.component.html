@@ -1,0 +1,60 @@
+<div class="d-flex">
+    <div *ngIf="showSidebar" class="sidebar d-flex flex-column p-5"
+        style="height: 90vh; width: 250px; background-color: #e3afbc;">
+        <a href="" style="text-decoration: none; color: #fff; font-weight: 700;" routerLink="/dashboard">Dashboard</a>
+        <a href="" style="text-decoration: none; color: #fff; font-weight: 700;" routerLink="/students">Student List</a>
+    </div>
+    <div class="p-5 w-100" style="height: 88vh;">
+        <div class="row w-100">
+            <div class="col-md-8">
+                <div class="row w-100">
+                    <div class="col-md-12 rounded d-flex align-items-center"
+                        style="background-color: coral; height: 125px;">
+                        <h3><i class="fa-solid fa-bars ms-3 me-3 " (click)="sideBar()"
+                                style="cursor: pointer;"></i>Welcome {{adminName}}</h3>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-md-5 shadow rounded" style="height: 430px">
+                        <mat-card class=" demo-inline-calendar-card">
+                            <mat-calendar [(selected)]="selected"></mat-calendar>
+                        </mat-card>
+                        <p>Selected date: {{selected}}</p>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-6 shadow rounded">
+                        <highcharts-chart [Highcharts]="HighCharts" [options]="chartOptions"
+                            style="width: 100%; height: 400px; display: block;"></highcharts-chart>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div *ngIf="!editAdminStatus" style="height: 400px; background-color: blueviolet;"
+                    class="d-flex justify-content-center align-items-center flex-column">
+                    <img src={{profileImage}} height="180px" style="border-radius: 50%;" width="180px" alt="">
+                    <button class="btn mt-2" (click)="edit()">Edit Admin Details <i
+                            class="fa-solid fa-pen ms-2"></i></button>
+                </div>
+                <div *ngIf="editAdminStatus" style="height: 400px; background-color: rgb(57, 166, 217);"
+                    class="d-flex justify-content-center align-items-center flex-column">
+                    <h3>Update Admin Details</h3>
+                    <label for="">
+                        <input type="file" (change)="getFile($event)" style="display: none;">
+                        <img src={{profileImage}} height="180px" style="border-radius: 50%;" width="180px" alt="">
+                    </label>
+
+                    <input [(ngModel)]="adminDetails.name" type="text" class="form-control mt-3 w-75" placeholder="User Name">
+                    <input [(ngModel)]="adminDetails.password" type="text" class="form-control mt-3 w-75" placeholder="Password">
+                    <div class="d-flex justify-content-between mt-3 w-75">
+                        <button class="btn btn-outline-warning">cancel</button>
+                        <button class=" btn btn-outline-success" (click)="updateAdmin()">Update</button>
+                    </div>
+                </div>
+                <div class="mt-4 d-flex align-items-center justify-content-center"
+                    style=" height: 150px;background-color: rgb(210, 87, 112);">
+                    <h4>students :{{studentListCount}}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
